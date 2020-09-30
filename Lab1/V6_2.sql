@@ -13,7 +13,7 @@ GO
 
 /*Вывести на экран сотрудников, которым больше 65-ти лет на настоящий момент.
 Вывести также количество лет, прошедших с момента трудоустройства, в столбце с именем ‘YearsWorked’.*/
-SELECT Employee.BusinessEntityID, Employee.JobTitle, Employee.Gender, DATEDIFF(YEAR, Employee.HireDate, CURRENT_TIMESTAMP) 'YearsWorked'
+SELECT Employee.BusinessEntityID, Employee.JobTitle, Employee.Gender, DATEDIFF(YEAR, Employee.HireDate, CURRENT_TIMESTAMP) as YearsWorked
 FROM HumanResources.Employee
 WHERE DATEDIFF(YEAR, Employee.BirthDate, CURRENT_TIMESTAMP) > 65;
 GO
