@@ -1,7 +1,8 @@
 ﻿USE AdventureWorks2012;
 GO
 
---a) создайте таблицу dbo.Person с такой же структурой как Person.Person, кроме полей xml, uniqueidentifier, не включая индексы, ограничения и триггеры;
+/*a) создайте таблицу dbo.Person с такой же структурой как Person.Person, кроме полей xml, 
+uniqueidentifier, не включая индексы, ограничения и триггеры;*/
 CREATE TABLE dbo.Person (
 	BusinessEntityId INT NOT NULL,
 	PersonType NCHAR(2) NOT NULL,
@@ -54,6 +55,9 @@ FROM Person.Person p
 INNER JOIN Person.BusinessEntityContact bec ON bec.PersonID = p.BusinessEntityID
 INNER JOIN Person.ContactType ct ON ct.ContactTypeID = bec.ContactTypeID
 WHERE ct.Name = 'Owner';
+
+--Вывод результата.
+SELECT BusinessEntityId, PersonType, Title, FirstName, LastName, ModifiedDate FROM dbo.Person;
 
 --f) измените размерность поля Title, уменьшите размер поля до 4-ти символов, также запретите добавлять null значения для этого поля.
 ALTER TABLE dbo.Person
