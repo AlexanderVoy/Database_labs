@@ -1,17 +1,17 @@
-USE AdventureWorks2012;
+п»їUSE AdventureWorks2012;
 GO
 
 /*
-a) выполните код, созданный во втором задании второй лабораторной работы.
-Добавьте в таблицу dbo.Person поля TotalGroupSales MONEY и SalesYTD MONEY.
-Также создайте в таблице вычисляемое поле RoundSales, округляющее значение в поле SalesYTD до целого числа.
+a) РІС‹РїРѕР»РЅРёС‚Рµ РєРѕРґ, СЃРѕР·РґР°РЅРЅС‹Р№ РІРѕ РІС‚РѕСЂРѕРј Р·Р°РґР°РЅРёРё РІС‚РѕСЂРѕР№ Р»Р°Р±РѕСЂР°С‚РѕСЂРЅРѕР№ СЂР°Р±РѕС‚С‹.
+Р”РѕР±Р°РІСЊС‚Рµ РІ С‚Р°Р±Р»РёС†Сѓ dbo.Person РїРѕР»СЏ TotalGroupSales MONEY Рё SalesYTD MONEY.
+РўР°РєР¶Рµ СЃРѕР·РґР°Р№С‚Рµ РІ С‚Р°Р±Р»РёС†Рµ РІС‹С‡РёСЃР»СЏРµРјРѕРµ РїРѕР»Рµ RoundSales, РѕРєСЂСѓРіР»СЏСЋС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РІ РїРѕР»Рµ SalesYTD РґРѕ С†РµР»РѕРіРѕ С‡РёСЃР»Р°.
 */
 ALTER TABLE dbo.Person
 ADD TotalGroupSales MONEY, SalesYTD MONEY, RoundSales AS (ROUND(SalesYTD, 0));
 
 /*
-b) создайте временную таблицу #Person, с первичным ключом по полю BusinessEntityID.
-Временная таблица должна включать все поля таблицы dbo.Person за исключением поля RoundSales.
+b) СЃРѕР·РґР°Р№С‚Рµ РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ #Person, СЃ РїРµСЂРІРёС‡РЅС‹Рј РєР»СЋС‡РѕРј РїРѕ РїРѕР»СЋ BusinessEntityID.
+Р’СЂРµРјРµРЅРЅР°СЏ С‚Р°Р±Р»РёС†Р° РґРѕР»Р¶РЅР° РІРєР»СЋС‡Р°С‚СЊ РІСЃРµ РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ dbo.Person Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј РїРѕР»СЏ RoundSales.
 */
 CREATE TABLE dbo.#Person (
 	BusinessEntityID INT NOT NULL,
@@ -30,11 +30,11 @@ CREATE TABLE dbo.#Person (
 )
 
 /*
-c) заполните временную таблицу данными из dbo.Person.
-Поле SalesYTD заполните значениями из таблицы Sales.SalesTerritory.
-Посчитайте общую сумму продаж (SalesYTD) для каждой группы территорий (Group)
-в таблице Sales.SalesTerritory и заполните этими значениями поле TotalGroupSales.
-Подсчет суммы продаж осуществите в Common Table Expression (CTE).
+c) Р·Р°РїРѕР»РЅРёС‚Рµ РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РґР°РЅРЅС‹РјРё РёР· dbo.Person.
+РџРѕР»Рµ SalesYTD Р·Р°РїРѕР»РЅРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏРјРё РёР· С‚Р°Р±Р»РёС†С‹ Sales.SalesTerritory.
+РџРѕСЃС‡РёС‚Р°Р№С‚Рµ РѕР±С‰СѓСЋ СЃСѓРјРјСѓ РїСЂРѕРґР°Р¶ (SalesYTD) РґР»СЏ РєР°Р¶РґРѕР№ РіСЂСѓРїРїС‹ С‚РµСЂСЂРёС‚РѕСЂРёР№ (Group)
+РІ С‚Р°Р±Р»РёС†Рµ Sales.SalesTerritory Рё Р·Р°РїРѕР»РЅРёС‚Рµ СЌС‚РёРјРё Р·РЅР°С‡РµРЅРёСЏРјРё РїРѕР»Рµ TotalGroupSales.
+РџРѕРґСЃС‡РµС‚ СЃСѓРјРјС‹ РїСЂРѕРґР°Р¶ РѕСЃСѓС‰РµСЃС‚РІРёС‚Рµ РІ Common Table Expression (CTE).
 */
 WITH SALES_CTE AS (SELECT st."Group", SUM(st.SalesYTD) TotalGroupSales
 FROM Sales.SalesTerritory st
@@ -74,16 +74,16 @@ INNER JOIN SALES_CTE t ON st."Group" = t."Group";
 SELECT * FROM dbo.#Person;
 
 /*
-d) удалите из таблицы dbo.Person строки, где EmailPromotion = 2
+d) СѓРґР°Р»РёС‚Рµ РёР· С‚Р°Р±Р»РёС†С‹ dbo.Person СЃС‚СЂРѕРєРё, РіРґРµ EmailPromotion = 2
 */
 DELETE FROM dbo.Person WHERE EmailPromotion = 2;
 
 /*
-e) напишите Merge выражение, использующее dbo.Person как target, а временную таблицу как source.
-Для связи target и source используйте BusinessEntityID.
-Обновите поля TotalGroupSales и SalesYTD, если запись присутствует в source и target.
-Если строка присутствует во временной таблице, но не существует в target, добавьте строку в dbo.Person.
-Если в dbo.Person присутствует такая строка, которой не существует во временной таблице, удалите строку из dbo.Person.
+e) РЅР°РїРёС€РёС‚Рµ Merge РІС‹СЂР°Р¶РµРЅРёРµ, РёСЃРїРѕР»СЊР·СѓСЋС‰РµРµ dbo.Person РєР°Рє target, Р° РІСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєР°Рє source.
+Р”Р»СЏ СЃРІСЏР·Рё target Рё source РёСЃРїРѕР»СЊР·СѓР№С‚Рµ BusinessEntityID.
+РћР±РЅРѕРІРёС‚Рµ РїРѕР»СЏ TotalGroupSales Рё SalesYTD, РµСЃР»Рё Р·Р°РїРёСЃСЊ РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІ source Рё target.
+Р•СЃР»Рё СЃС‚СЂРѕРєР° РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІРѕ РІСЂРµРјРµРЅРЅРѕР№ С‚Р°Р±Р»РёС†Рµ, РЅРѕ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ target, РґРѕР±Р°РІСЊС‚Рµ СЃС‚СЂРѕРєСѓ РІ dbo.Person.
+Р•СЃР»Рё РІ dbo.Person РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ С‚Р°РєР°СЏ СЃС‚СЂРѕРєР°, РєРѕС‚РѕСЂРѕР№ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІРѕ РІСЂРµРјРµРЅРЅРѕР№ С‚Р°Р±Р»РёС†Рµ, СѓРґР°Р»РёС‚Рµ СЃС‚СЂРѕРєСѓ РёР· dbo.Person.
 */
 MERGE INTO dbo.Person dest
 USING dbo.#Person src
