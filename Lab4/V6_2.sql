@@ -1,10 +1,10 @@
-USE [AdventureWorks2012];
+п»їUSE [AdventureWorks2012];
 GO
 
 /*
-a) Создайте представление VIEW, отображающее данные из таблиц Person.PhoneNumberType
-и Person.PersonPhone. Создайте уникальный кластерный индекс в представлении
-по полям PhoneNumberTypeID и BusinessEntityID.
+a) РЎРѕР·РґР°Р№С‚Рµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ VIEW, РѕС‚РѕР±СЂР°Р¶Р°СЋС‰РµРµ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС† Person.PhoneNumberType
+Рё Person.PersonPhone. РЎРѕР·РґР°Р№С‚Рµ СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»Р°СЃС‚РµСЂРЅС‹Р№ РёРЅРґРµРєСЃ РІ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё
+РїРѕ РїРѕР»СЏРј PhoneNumberTypeID Рё BusinessEntityID.
 */
 CREATE VIEW [Person].[PhoneNumberTypeAndPhoneView] (
 	[BusinessEntityID],
@@ -31,9 +31,9 @@ ON [Person].[PhoneNumberTypeAndPhoneView] ([PhoneNumberTypeID], [BusinessEntityI
 GO
 
 /*
-b) Создайте один INSTEAD OF триггер для представления на три операции INSERT, UPDATE, DELETE.
-Триггер должен выполнять соответствующие операции в таблицах Person.PhoneNumberType и Person.PersonPhone
-для указанного BusinessEntityID.
+b) РЎРѕР·РґР°Р№С‚Рµ РѕРґРёРЅ INSTEAD OF С‚СЂРёРіРіРµСЂ РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РЅР° С‚СЂРё РѕРїРµСЂР°С†РёРё INSERT, UPDATE, DELETE.
+РўСЂРёРіРіРµСЂ РґРѕР»Р¶РµРЅ РІС‹РїРѕР»РЅСЏС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ РѕРїРµСЂР°С†РёРё РІ С‚Р°Р±Р»РёС†Р°С… Person.PhoneNumberType Рё Person.PersonPhone
+РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ BusinessEntityID.
 */
 CREATE TRIGGER [Person].[PhoneNumberTypeAndPhoneViewInsertUpdateDeleteTrigger]
 ON [Person].[PhoneNumberTypeAndPhoneView]
@@ -94,9 +94,9 @@ END;
 GO
 
 /*c)
-Вставьте новую строку в представление, указав новые данные для PhoneNumberType и
-PersonPhone для существующего BusinessEntityID (например 1). Триггер должен добавить новые строки в таблицы
-Person.PhoneNumberType и Person.PersonPhone. Обновите вставленные строки через представление. Удалите строки.
+Р’СЃС‚Р°РІСЊС‚Рµ РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ РІ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ, СѓРєР°Р·Р°РІ РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ РґР»СЏ PhoneNumberType Рё
+PersonPhone РґР»СЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ BusinessEntityID (РЅР°РїСЂРёРјРµСЂ 1). РўСЂРёРіРіРµСЂ РґРѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Рµ СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†С‹
+Person.PhoneNumberType Рё Person.PersonPhone. РћР±РЅРѕРІРёС‚Рµ РІСЃС‚Р°РІР»РµРЅРЅС‹Рµ СЃС‚СЂРѕРєРё С‡РµСЂРµР· РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ. РЈРґР°Р»РёС‚Рµ СЃС‚СЂРѕРєРё.
 */
 INSERT INTO [Person].[PhoneNumberTypeAndPhoneView] (
 	[BusinessEntityID],
